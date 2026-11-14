@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="CurvaOrigen: fajas moldeadoras de origen colombiano para acompañar tu estilo y comodidad diaria en República Dominicana.">
+  <title>CurvaOrigen | Tu curva, con origen.</title>
+  <!-- Google Fonts: única dependencia externa -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --brown: #8B5E3C;
+      --rose: #D4A5A5;
+      --cream: #F5F0EB;
+      --ink: #2C2C2C;
+      --white: #fff;
+      --muted: #746b65;
+      --line: rgba(139,94,60,.18);
+      --shadow: 0 16px 45px rgba(44,44,44,.10);
+      --serif: 'Playfair Display', Georgia, serif;
+      --sans: 'Inter', Arial, sans-serif;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; color: var(--ink); background: #fff; font-family: var(--sans); line-height: 1.65; }
+    img { display: block; max-width: 100%; }
+    a { color: inherit; text-decoration: none; }
+    button { font: inherit; cursor: pointer; }
+    .container { width: min(1120px, calc(100% - 40px)); margin: auto; }
+    .topbar { background: var(--ink); color: white; text-align: center; padding: 8px 16px; font-size: .76rem; letter-spacing: .08em; }
+    header { position: sticky; top: 0; z-index: 20; background: rgba(255,255,255,.96); backdrop-filter: blur(12px); border-bottom: 1px solid var(--line); }
+    .nav { min-height: 76px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+    .brand { font-family: var(--serif); font-size: 1.65rem; font-weight: 700; color: var(--brown); letter-spacing: -.04em; white-space: nowrap; }
+    .brand span { color: var(--rose); }
+    .nav-links { display: flex; align-items: center; gap: 22px; font-size: .82rem; font-weight: 600; }
+    .nav-links a:hover { color: var(--brown); }
+    .nav-actions { display: flex; align-items: center; gap: 12px; }
+    .language { display: flex; gap: 5px; align-items: center; font-size: .78rem; font-weight: 700; }
+    .language button { border: 0; background: transparent; color: #9b918b; padding: 5px; }
+    .language button.active { color: var(--brown); text-decoration: underline; text-underline-offset: 4px; }
+    .cart-button { border: 1px solid var(--line); border-radius: 999px; padding: 9px 14px; background: white; color: var(--ink); font-size: .82rem; font-weight: 700; }
+    .cart-count { display: inline-grid; place-items: center; min-width: 21px; height: 21px; margin-left: 5px; border-radius: 50%; background: var(--rose); color: var(--ink); font-size: .7rem; }
+    .menu-toggle { display: none; border: 1px solid var(--line); background: white; border-radius: 8px; padding: 8px 11px; }
+    .hero { background: var(--cream); padding: 54px 0; }
+    .hero-grid { display: grid; grid-template-columns: 1fr 1fr; align-items: center; gap: 54px; }
+    .eyebrow { color: var(--brown); font-size: .72rem; letter-spacing: .18em; text-transform: uppercase; font-weight: 700; }
+    h1,h2,h3 { font-family: var(--serif); line-height: 1.15; font-weight: 600; }
+    h1 { font-size: clamp(2.7rem, 5vw, 4.7rem); margin: 14px 0 20px; letter-spacing: -.04em; }
+    h1 em { color: var(--brown); font-style: normal; }
+    .hero-copy { max-width: 510px; color: #625a55; font-size: 1.02rem; margin-bottom: 28px; }
+    .button { display: inline-flex; justify-content: center; align-items: center; gap: 9px; border: 1px solid var(--brown); background: var(--brown); color: white; padding: 13px 22px; border-radius: 3px; font-size: .84rem; font-weight: 700; transition: .2s; }
+    .button:hover { background: #70482d; transform: translateY(-1px); }
+    .button.secondary { background: transparent; color: var(--brown); }
+    .button.secondary:hover { background: rgba(139,94,60,.08); }
+    .hero-image { position: relative; }
+    .hero-image img { width: 100%; aspect-ratio: 4/4.25; object-fit: cover; border-radius: 48% 48% 4px 4px; box-shadow: var(--shadow); background: #e9ded4; }
+    .image-note { position: absolute; bottom: 20px; left: -20px; background: white; padding: 13px 17px; box-shadow: var(--shadow); font-family: var(--serif); font-size: 1rem; color: var(--brown); }
+    section { padding: 86px 0; }
+    .section-heading { text-align: center; max-width: 650px; margin: 0 auto 42px; }
+    .section-heading h2 { font-size: clamp(2rem, 4vw, 3rem); margin: 10px 0 12px; }
+    .section-heading p { color: var(--muted); margin: 0; }
+    .products { display: grid; grid-template-columns: repeat(3,1fr); gap: 24px; }
+    .product-card { border: 1px solid var(--line); background: white; transition: .25s; }
+    .product-card:hover { transform: translateY(-5px); box-shadow: var(--shadow); }
+    .product-photo { position: relative; background: var(--cream); overflow: hidden; }
+    .product-photo img { width: 100%; aspect-ratio: 4/4.25; object-fit: cover; transition: transform .4s; }
+    .product-card:hover .product-photo img { transform: scale(1.035); }
+    .product-tag { position: absolute; top: 14px; left: 14px; background: white; color: var(--brown); padding: 6px 10px; font-size: .66rem; letter-spacing: .08em; text-transform: uppercase; }
+    .product-info { padding: 21px; }
+    .product-info h3 { font-size: 1.35rem; margin: 0 0 8px; }
+    .product-info p { color: var(--muted); font-size: .86rem; min-height: 48px; margin: 0 0 15px; }
+    .product-bottom { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+    .price { color: var(--brown); font-weight: 700; font-size: 1rem; white-space: nowrap; }
+    .small-button { border: 1px solid var(--brown); background: transparent; color: var(--brown); padding: 9px 12px; font-size: .75rem; font-weight: 700; }
+    .small-button:hover { background: var(--brown); color: white; }
+    .story { background: var(--cream); }
+    .story-grid { display: grid; grid-template-columns: .9fr 1.1fr; align-items: center; gap: 58px; }
+    .story-art { background: var(--rose); padding: 18px; }
+    .story-art img { width: 100%; aspect-ratio: 4/4.3; object-fit: cover; background: #ead9d2; }
+    .story-copy h2 { font-size: clamp(2rem,4vw,3.2rem); margin: 12px 0 18px; }
+    .story-copy p { color: #655c56; }
+    .story-signature { font-family: var(--serif); font-style: italic; color: var(--brown); font-size: 1.3rem; margin-top: 22px; }
+    .shipping-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 18px; }
+    .info-card { padding: 26px; border: 1px solid var(--line); background: white; }
+    .info-icon { width: 42px; height: 42px; display: grid; place-items: center; border-radius: 50%; background: var(--cream); color: var(--brown); font-size: 1.2rem; }
+    .info-card h3 { font-size: 1.25rem; margin: 16px 0 8px; }
+    .info-card p { color: var(--muted); font-size: .86rem; margin: 0; }
+    .virtual { background: #efe2dc; text-align: center; padding: 58px 20px; }
+    .virtual h2 { font-size: clamp(2rem,4vw,2.8rem); margin: 0 0 12px; }
+    .virtual p { color: #625a55; margin: 0 auto 23px; max-width: 560px; }
+    .contact { background: var(--ink); color: white; }
+    .contact .section-heading p { color: #c9bfba; }
+    .contact-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; text-align: center; }
+    .contact-item { padding: 20px; border: 1px solid rgba(255,255,255,.16); }
+    .contact-item h3 { color: var(--rose); font-size: 1.2rem; margin: 0 0 8px; }
+    .contact-item p { color: #ddd4cf; font-size: .85rem; margin: 0 0 12px; overflow-wrap: anywhere; }
+    .contact-item a { color: white; text-decoration: underline; text-underline-offset: 4px; font-size: .83rem; }
+    footer { background: #211f1e; color: #bfb5af; padding: 23px 0; font-size: .75rem; }
+    .footer-inner { display: flex; justify-content: space-between; gap: 15px; flex-wrap: wrap; }
+    .footer-inner strong { color: white; font-family: var(--serif); font-size: 1rem; }
+    /* Panel lateral del carrito */
+    .cart-overlay { position: fixed; inset: 0; z-index: 40; background: rgba(0,0,0,.42); opacity: 0; visibility: hidden; transition: .25s; }
+    .cart-overlay.open { opacity: 1; visibility: visible; }
+    .cart-drawer { position: absolute; right: 0; top: 0; height: 100%; width: min(430px,100%); background: white; padding: 26px; display: flex; flex-direction: column; transform: translateX(100%); transition: .25s; }
+    .cart-overlay.open .cart-drawer { transform: translateX(0); }
+    .drawer-head { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--line); padding-bottom: 16px; }
+    .drawer-head h2 { margin: 0; font-size: 1.7rem; }
+    .icon-button { border: 0; background: var(--cream); width: 36px; height: 36px; border-radius: 50%; font-size: 1.2rem; }
+    .cart-items { overflow-y: auto; flex: 1; padding: 16px 0; }
+    .cart-row { display: flex; justify-content: space-between; gap: 15px; padding: 13px 0; border-bottom: 1px solid var(--line); font-size: .85rem; }
+    .cart-row small { display: block; color: var(--muted); margin-top: 4px; }
+    .remove-item { border: 0; background: transparent; color: #986c6c; font-size: .75rem; text-decoration: underline; }
+    .cart-total { border-top: 1px solid var(--line); padding-top: 18px; }
+    .total-line { display: flex; justify-content: space-between; font-weight: 700; margin-bottom: 16px; }
+    .cart-total .button { width: 100%; }
+    .cart-empty { color: var(--muted); text-align: center; padding: 35px 10px; }
+    /* Modal de detalle */
+    .modal { position: fixed; inset: 0; z-index: 50; display: grid; place-items: center; padding: 20px; background: rgba(0,0,0,.48); opacity: 0; visibility: hidden; transition: .2s; }
+    .modal.open { opacity: 1; visibility: visible; }
+    .modal-card { position: relative; width: min(620px,100%); max-height: 90vh; overflow-y: auto; background: white; padding: 34px; box-shadow: var(--shadow); }
+    .modal-card h2 { font-size: 2rem; margin: 0 0 12px; }
+    .modal-card p,.modal-card li { color: var(--muted); font-size: .9rem; }
+    .modal-card h3 { font-size: 1.15rem; margin: 20px 0 6px; }
+    .modal-close { position: absolute; right: 17px; top: 17px; }
+    .notice { position: fixed; z-index: 60; bottom: 22px; left: 50%; transform: translate(-50%,20px); background: var(--ink); color: white; padding: 13px 20px; font-size: .84rem; opacity: 0; pointer-events: none; transition: .25s; box-shadow: var(--shadow); width: max-content; max-width: calc(100% - 30px); text-align: center; }
+    .notice.show { opacity: 1; transform: translate(-50%,0); }
+    @media (max-width: 900px) {
+      .nav-links { gap: 12px; font-size: .75rem; }
+      .hero-grid { gap: 30px; }
+    }
+    @media (max-width: 720px) {
+      .container { width: min(100% - 30px,560px); }
+      .nav { min-height: 66px; }
+      .menu-toggle { display: inline-block; }
+      .nav-links { display: none; position: absolute; top: 66px; left: 0; right: 0; padding: 18px 22px 22px; background: white; border-bottom: 1px solid var(--line); flex-direction: column; align-items: flex-start; gap: 14px; }
+      .nav-links.open { display: flex; }
+      .brand { font-size: 1.42rem; }
+      .nav-actions { gap: 7px; }
+      .cart-button { padding: 8px 10px; font-size: .75rem; }
+      .hero { padding: 40px 0 48px; }
+      .hero-grid,.story-grid { grid-template-columns: 1fr; gap: 30px; }
+      .hero-copy { font-size: .95rem; }
+      .hero-image { width: 88%; margin: 0 auto; }
+      .image-note { left: -12px; bottom: 12px; }
+      section { padding: 65px 0; }
+      .products { grid-template-columns: 1fr; max-width: 430px; margin: auto; }
+      .product-info p { min-height: auto; }
+      .shipping-grid,.contact-grid { grid-template-columns: 1fr; }
+      .story-art { max-width: 430px; margin: auto; }
+      .modal-card { padding: 28px 22px; }
+    }
+    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } *,*::before,*::after { transition-duration: .01ms !important; } }
+  </style>
+</head>
+<body>
+  <div class="topbar" data-i18n="topbar">ENVÍOS INTERNACIONALES A REPÚBLICA DOMINICANA · HECHO CON CARIÑO EN COLOMBIA</div>
+  <header>
+    <div class="container nav">
+      <a class="brand" href="#inicio" aria-label="CurvaOrigen, inicio">Curva<span>Origen</span></a>
+      <nav class="nav-links" id="navLinks" aria-label="Navegación principal">
+        <a href="#inicio" data-i18n="navHome">Inicio</a><a href="#catalogo" data-i18n="navCatalog">Catálogo</a><a href="#historia" data-i18n="navStory">Nuestra historia</a><a href="#envios" data-i18n="navShipping">Envíos y pagos</a><a href="#contacto" data-i18n="navContact">Contacto</a>
+      </nav>
+      <div class="nav-actions">
+        <div class="language" aria-label="Language selector"><button class="active" id="langES" type="button" aria-pressed="true">ES</button><span>|</span><button id="langEN" type="button" aria-pressed="false">EN</button></div>
+        <button class="cart-button" id="openCart" type="button"><span data-i18n="cartLabel">Carrito</span><span class="cart-count" id="cartCount">0</span></button>
+        <button class="menu-toggle" id="menuToggle" type="button" aria-label="Abrir menú" aria-expanded="false">☰</button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- 1. Inicio -->
+    <section class="hero" id="inicio">
+      <div class="container hero-grid">
+        <div>
+          <div class="eyebrow" data-i18n="heroEyebrow">Diseño colombiano · Para ti</div>
+          <h1 data-i18n="heroTitle">Tu curva,<br><em>con origen.</em></h1>
+          <p class="hero-copy" data-i18n="heroText">Prendas moldeadoras pensadas para acompañarte con comodidad, confianza y estilo. Una esencia colombiana que llega a República Dominicana.</p>
+          <a class="button" href="#catalogo" data-i18n="heroButton">Descubre la colección <span aria-hidden="true">→</span></a>
+        </div>
+        <div class="hero-image">
+          <img src="img/empaque.png" alt="Empaque de la faja moldeadora CurvaOrigen en tonos nude y rosa" onerror="this.style.display='none';">
+          <div class="image-note" data-i18n="heroNote">Un origen que se siente.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. Catálogo -->
+    <section id="catalogo">
+      <div class="container">
+        <div class="section-heading"><div class="eyebrow" data-i18n="catalogEyebrow">Encuentra tu favorita</div><h2 data-i18n="catalogTitle">La colección CurvaOrigen</h2><p data-i18n="catalogText">Tres estilos para acompañar distintos momentos de tu día. Elige el que va contigo.</p></div>
+        <div class="products" id="productGrid"></div>
+      </div>
+    </section>
+
+    <!-- 5. Envíos y pagos -->
+    <section class="story" id="envios">
+      <div class="container">
+        <div class="section-heading"><div class="eyebrow" data-i18n="shippingEyebrow">Compra con tranquilidad</div><h2 data-i18n="shippingTitle">De Colombia hasta tu puerta</h2><p data-i18n="shippingIntro">Queremos que conozcas cómo funciona la experiencia de compra de CurvaOrigen.</p></div>
+        <div class="shipping-grid">
+          <article class="info-card"><div class="info-icon" aria-hidden="true">✈</div><h3 data-i18n="airTitle">Envío aéreo internacional</h3><p data-i18n="airText">Envíos desde Colombia hacia República Dominicana. Tiempo estimado de 3 a 5 días, sujeto a disponibilidad logística, aduanas y destino.</p></article>
+          <article class="info-card"><div class="info-icon" aria-hidden="true">♡</div><h3 data-i18n="paymentTitle">Medios de pago</h3><p data-i18n="paymentText">Como referencia informativa: tarjetas, transferencias bancarias y pago contra entrega, según cobertura y condiciones del operador local.</p></article>
+          <article class="info-card"><div class="info-icon" aria-hidden="true">◎</div><h3 data-i18n="clearTitle">Información clara</h3><p data-i18n="clearText">Los precios se muestran en pesos dominicanos (RD$). Los costos finales de envío, impuestos y disponibilidad se confirmarían antes de una compra real.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6. Nuestra historia -->
+    <section id="historia">
+      <div class="container story-grid">
+        <div class="story-art"><img src="img/punto-de-venta.png" alt="Faja CurvaOrigen exhibida en un punto de venta" onerror="this.style.display='none';"></div>
+        <div class="story-copy"><div class="eyebrow" data-i18n="storyEyebrow">Tres generaciones, una misma pasión</div><h2 data-i18n="storyTitle">Una historia hecha con dedicación.</h2><p data-i18n="storyP1">CurvaOrigen nace en Medellín, Colombia, en un taller familiar donde el conocimiento de la confección ha pasado de generación en generación.</p><p data-i18n="storyP2">Hoy, tres generaciones inspiran una marca que cruza fronteras para compartir prendas moldeadoras con identidad, cuidado por los detalles y una mirada cercana a cada mujer.</p><div class="story-signature" data-i18n="storySignature">De nuestra familia, para la tuya.</div></div>
+      </div>
+    </section>
+
+    <!-- 7. Experiencia virtual -->
+    <section class="virtual">
+      <div class="container"><div class="eyebrow" data-i18n="virtualEyebrow">Una experiencia diferente</div><h2 data-i18n="virtualTitle">Visualiza CurvaOrigen en tu espacio</h2><p data-i18n="virtualText">Explora la experiencia virtual de la marca y descubre una nueva forma de acercarte a nuestra colección.</p><a class="button" id="onirixLink" href="[PEGA AQUÍ TU ENLACE DE ONIRIX]" target="_blank" rel="noopener noreferrer" data-i18n="virtualButton">Ver en tu espacio ↗</a></div>
+    </section>
+
+    <!-- 8. Contacto y redes -->
+    <section class="contact" id="contacto">
+      <div class="container"><div class="section-heading"><div class="eyebrow" data-i18n="contactEyebrow">Estamos para acompañarte</div><h2 data-i18n="contactTitle">Conversemos</h2><p data-i18n="contactText">Síguenos y escríbenos a través de nuestros canales. No necesitas completar formularios.</p></div>
+        <div class="contact-grid">
+          <article class="contact-item"><h3 data-i18n="whatsTitle">WhatsApp</h3><p data-i18n="whatsText">Atención y consultas sobre la colección.</p><a id="whatsappLink" href="https://wa.me/18090000000" target="_blank" rel="noopener noreferrer" data-i18n="whatsLink">Escríbenos</a></article>
+          <article class="contact-item"><h3>Instagram</h3><p data-i18n="instaText">Novedades, inspiración y comunidad CurvaOrigen.</p><a id="instagramLink" href="https://www.instagram.com/curvaorigen" target="_blank" rel="noopener noreferrer">@curvaorigen</a></article>
+          <article class="contact-item"><h3 data-i18n="emailTitle">Correo</h3><p data-i18n="emailText">Para consultas generales y colaboraciones.</p><a id="emailLink" href="mailto:hola@curvaorigen.com">hola@curvaorigen.com</a></article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer><div class="container footer-inner"><strong>CurvaOrigen · <span data-i18n="tagline">Tu curva, con origen.</span></strong><span data-i18n="footerText">Marca ficticia para proyecto académico. Sitio de demostración; no procesa pagos ni pedidos reales.</span><span>© <span id="year"></span> CurvaOrigen</span></div></footer>
+
+  <!-- Carrito simulado: no recopila información ni procesa pagos -->
+  <div class="cart-overlay" id="cartOverlay" aria-hidden="true">
+    <aside class="cart-drawer" role="dialog" aria-modal="true" aria-labelledby="cartTitle">
+      <div class="drawer-head"><h2 id="cartTitle" data-i18n="cartTitle">Tu carrito</h2><button class="icon-button" id="closeCart" type="button" aria-label="Cerrar carrito">×</button></div>
+      <div class="cart-items" id="cartItems"></div>
+      <div class="cart-total"><div class="total-line"><span data-i18n="totalLabel">Total</span><span id="cartTotal">RD$ 0</span></div><button class="button" id="checkoutButton" type="button" data-i18n="checkout">Finalizar compra</button></div>
+    </aside>
+  </div>
+
+  <!-- Ficha de producto -->
+  <div class="modal" id="productModal" aria-hidden="true">
+    <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <button class="icon-button modal-close" id="closeModal" type="button" aria-label="Cerrar ventana">×</button>
+      <div class="eyebrow" data-i18n="detailEyebrow">Detalles del producto</div><h2 id="modalTitle"></h2><p id="modalDescription"></p>
+      <h3 data-i18n="benefitsTitle">Beneficios y detalles</h3><ul id="modalBenefits"></ul>
+      <h3 data-i18n="materialsTitle">Materiales</h3><p data-i18n="materialsText">Powernet y textiles seleccionados para brindar estructura y ajuste. La composición exacta puede variar según el modelo.</p>
+      <h3 data-i18n="sizesTitle">Tallas disponibles</h3><p data-i18n="sizesText">M, L y XL. Consulta la guía de medidas antes de elegir tu talla.</p>
+    </div>
+  </div>
+  <div class="notice" id="notice" role="status" aria-live="polite"></div>
+
+  <script>
+    // Datos de contacto: reemplaza estos valores por los canales oficiales antes de publicar.
+    const CONTACT = {
+      whatsapp: '18090000000', // Código de país + número, sin + ni espacios.
+      instagram: 'https://www.instagram.com/curvaorigen',
+      email: 'hola@curvaorigen.com',
+      onirix: '[PEGA AQUÍ TU ENLACE DE ONIRIX]'
+    };
+
+    // Catálogo y contenido bilingüe. Los precios son ilustrativos.
+    const products = [
+      { id: 'origen', image: 'img/empaque.png', alt: 'Faja cintura Origen en color nude', price: 3500,
+        name: { es: 'Faja cintura Origen', en: 'Origen Waist Cincher' },
+        description: { es: 'Un diseño clásico para acompañar tus looks de todos los días.', en: 'A classic design to complement your everyday looks.' },
+        benefits: { es: ['Estructura de ajuste para la zona de la cintura.', 'Broches frontales para facilitar la colocación.', 'Diseño discreto para combinar con diferentes prendas.'], en: ['Shaping structure around the waist.', 'Front hook closures for easy wear.', 'Discreet design to pair with different outfits.'] } },
+      { id: 'curva', image: 'img/linea.png', alt: 'Faja body Curva de cuerpo completo', price: 5200,
+        name: { es: 'Faja body Curva', en: 'Curva Bodysuit Shaper' },
+        description: { es: 'Una silueta integral con acabado suave y femenino.', en: 'A full-body silhouette with a smooth, feminine finish.' },
+        benefits: { es: ['Cobertura tipo body para un acabado uniforme.', 'Tejido elástico que acompaña el movimiento.', 'Diseño pensado para llevar bajo tu ropa.'], en: ['Bodysuit coverage for a smooth finish.', 'Stretch fabric that moves with you.', 'Designed to be worn under your clothes.'] } },
+      { id: 'short', image: 'img/en-uso.png', alt: 'Faja short Reductora en color negro', price: 4800,
+        name: { es: 'Faja short Reductora', en: 'Reductora Shaping Shorts' },
+        description: { es: 'Una opción práctica para sumar soporte y comodidad a tu día.', en: 'A practical option for added support and everyday comfort.' },
+        benefits: { es: ['Formato short con cobertura desde la cintura.', 'Tejido Powernet de estructura firme.', 'Corte pensado para acompañar prendas ajustadas.'], en: ['Short-style shape with waist coverage.', 'Firm-structure Powernet fabric.', 'Cut designed to pair with fitted outfits.'] } }
+    ];
+
+    const translations = {
+      es: {
+        topbar:'ENVÍOS INTERNACIONALES A REPÚBLICA DOMINICANA · HECHO CON CARIÑO EN COLOMBIA', navHome:'Inicio',navCatalog:'Catálogo',navStory:'Nuestra historia',navShipping:'Envíos y pagos',navContact:'Contacto',cartLabel:'Carrito',
+        heroEyebrow:'Diseño colombiano · Para ti',heroTitle:'Tu curva,<br><em>con origen.</em>',heroText:'Prendas moldeadoras pensadas para acompañarte con comodidad, confianza y estilo. Una esencia colombiana que llega a República Dominicana.',heroButton:'Descubre la colección →',heroNote:'Un origen que se siente.',
+        catalogEyebrow:'Encuentra tu favorita',catalogTitle:'La colección CurvaOrigen',catalogText:'Tres estilos para acompañar distintos momentos de tu día. Elige el que va contigo.',
+        details:'Ver detalles',add:'Agregar al carrito',
+        shippingEyebrow:'Compra con tranquilidad',shippingTitle:'De Colombia hasta tu puerta',shippingIntro:'Queremos que conozcas cómo funciona la experiencia de compra de CurvaOrigen.',airTitle:'Envío aéreo internacional',airText:'Envíos desde Colombia hacia República Dominicana. Tiempo estimado de 3 a 5 días, sujeto a disponibilidad logística, aduanas y destino.',paymentTitle:'Medios de pago',paymentText:'Como referencia informativa: tarjetas, transferencias bancarias y pago contra entrega, según cobertura y condiciones del operador local.',clearTitle:'Información clara',clearText:'Los precios se muestran en pesos dominicanos (RD$). Los costos finales de envío, impuestos y disponibilidad se confirmarían antes de una compra real.',
+        storyEyebrow:'Tres generaciones, una misma pasión',storyTitle:'Una historia hecha con dedicación.',storyP1:'CurvaOrigen nace en Medellín, Colombia, en un taller familiar donde el conocimiento de la confección ha pasado de generación en generación.',storyP2:'Hoy, tres generaciones inspiran una marca que cruza fronteras para compartir prendas moldeadoras con identidad, cuidado por los detalles y una mirada cercana a cada mujer.',storySignature:'De nuestra familia, para la tuya.',
+        virtualEyebrow:'Una experiencia diferente',virtualTitle:'Visualiza CurvaOrigen en tu espacio',virtualText:'Explora la experiencia virtual de la marca y descubre una nueva forma de acercarte a nuestra colección.',virtualButton:'Ver en tu espacio ↗',
+        contactEyebrow:'Estamos para acompañarte',contactTitle:'Conversemos',contactText:'Síguenos y escríbenos a través de nuestros canales. No necesitas completar formularios.',whatsTitle:'WhatsApp',whatsText:'Atención y consultas sobre la colección.',whatsLink:'Escríbenos',instaText:'Novedades, inspiración y comunidad CurvaOrigen.',emailTitle:'Correo',emailText:'Para consultas generales y colaboraciones.',
+        tagline:'Tu curva, con origen.',footerText:'Marca ficticia para proyecto académico. Sitio de demostración; no procesa pagos ni pedidos reales.',cartTitle:'Tu carrito',totalLabel:'Total',checkout:'Finalizar compra',emptyCart:'Tu carrito está vacío por ahora.',remove:'Quitar',detailEyebrow:'Detalles del producto',benefitsTitle:'Beneficios y detalles',materialsTitle:'Materiales',materialsText:'Powernet y textiles seleccionados para brindar estructura y ajuste. La composición exacta puede variar según el modelo.',sizesTitle:'Tallas disponibles',sizesText:'M, L y XL. Consulta la guía de medidas antes de elegir tu talla.',added:'Producto agregado al carrito.',removed:'Producto eliminado del carrito.',simulated:'¡Gracias por visitarnos! Esta es una demostración: no se realizó ningún pedido ni pago.',onirixMissing:'Agrega tu enlace de Onirix en el archivo index.html antes de publicar.'
+      },
+      en: {
+        topbar:'INTERNATIONAL SHIPPING TO THE DOMINICAN REPUBLIC · MADE WITH CARE IN COLOMBIA',navHome:'Home',navCatalog:'Shop',navStory:'Our story',navShipping:'Shipping & payment',navContact:'Contact',cartLabel:'Bag',
+        heroEyebrow:'Colombian design · Made for you',heroTitle:'Your curve,<br><em>with origin.</em>',heroText:'Shapewear designed to support your everyday comfort, confidence, and style. A Colombian spirit arriving in the Dominican Republic.',heroButton:'Explore the collection →',heroNote:'An origin you can feel.',
+        catalogEyebrow:'Find your favorite',catalogTitle:'The CurvaOrigen collection',catalogText:'Three styles for different moments of your day. Choose the one that feels like you.',details:'View details',add:'Add to bag',
+        shippingEyebrow:'Shop with confidence',shippingTitle:'From Colombia to your door',shippingIntro:'Here is what to know about the CurvaOrigen shopping experience.',airTitle:'International air shipping',airText:'Shipping from Colombia to the Dominican Republic. Estimated delivery is 3 to 5 days, subject to logistics availability, customs, and destination.',paymentTitle:'Payment methods',paymentText:'For information only: cards, bank transfers, and cash on delivery, depending on local coverage and provider terms.',clearTitle:'Clear information',clearText:'Prices are shown in Dominican pesos (RD$). Final shipping costs, taxes, and availability would be confirmed before any real purchase.',
+        storyEyebrow:'Three generations, one shared passion',storyTitle:'A story made with dedication.',storyP1:'CurvaOrigen began in Medellín, Colombia, in a family workshop where garment-making knowledge has been passed down from one generation to the next.',storyP2:'Today, three generations inspire a brand crossing borders to share shapewear shaped by identity, attention to detail, and a thoughtful approach to every woman.',storySignature:'From our family to yours.',
+        virtualEyebrow:'A different experience',virtualTitle:'See CurvaOrigen in your space',virtualText:'Explore the brand’s virtual experience and discover a new way to connect with our collection.',virtualButton:'View in your space ↗',
+        contactEyebrow:'We are here for you',contactTitle:'Let’s talk',contactText:'Follow us and get in touch through our channels. No forms required.',whatsTitle:'WhatsApp',whatsText:'Questions and help with the collection.',whatsLink:'Message us',instaText:'News, inspiration, and the CurvaOrigen community.',emailTitle:'Email',emailText:'For general questions and collaborations.',
+        tagline:'Your curve, with origin.',footerText:'Fictional brand for an academic project. Demo website; no real payments or orders are processed.',cartTitle:'Your bag',totalLabel:'Total',checkout:'Complete checkout',emptyCart:'Your bag is empty for now.',remove:'Remove',detailEyebrow:'Product details',benefitsTitle:'Features and details',materialsTitle:'Materials',materialsText:'Powernet and selected textiles designed to provide structure and fit. Exact composition may vary by style.',sizesTitle:'Available sizes',sizesText:'M, L, and XL. Please check the size guide before choosing your size.',added:'Item added to your bag.',removed:'Item removed from your bag.',simulated:'Thanks for visiting! This is a demo: no order or payment has been made.',onirixMissing:'Add your Onirix link to index.html before publishing.'
+      }
+    };
+
+    let currentLang = 'es';
+    let cart = [];
+    const $ = (selector) => document.querySelector(selector);
+    const money = (amount) => new Intl.NumberFormat(currentLang === 'es' ? 'es-DO' : 'en-US', { maximumFractionDigits: 0 }).format(amount);
+    const t = (key) => translations[currentLang][key] || key;
+
+    function renderProducts() {
+      $('#productGrid').innerHTML = products.map(p => `
+        <article class="product-card">
+          <div class="product-photo"><img src="${p.image}" alt="${p.alt}" loading="lazy" onerror="this.src='https://placehold.co/600x640/F5F0EB/8B5E3C?text=${encodeURIComponent(p.name.es)}';"><span class="product-tag">CurvaOrigen</span></div>
+          <div class="product-info"><h3>${p.name[currentLang]}</h3><p>${p.description[currentLang]}</p>
+            <div class="product-bottom"><span class="price">RD$ ${money(p.price)}</span><button class="small-button" type="button" data-detail="${p.id}">${t('details')}</button><button class="small-button" type="button" data-add="${p.id}">${t('add')}</button></div>
+          </div>
+        </article>`).join('');
+    }
+    function setLanguage(lang) {
+      currentLang = lang;
+      document.documentElement.lang = lang;
+      document.querySelectorAll('[data-i18n]').forEach(el => { const key = el.dataset.i18n; if (translations[lang][key] !== undefined) el.innerHTML = translations[lang][key]; });
+      $('#langES').classList.toggle('active', lang === 'es'); $('#langEN').classList.toggle('active', lang === 'en');
+      $('#langES').setAttribute('aria-pressed', String(lang === 'es')); $('#langEN').setAttribute('aria-pressed', String(lang === 'en'));
+      renderProducts(); renderCart();
+    }
+    function showNotice(message) { const el = $('#notice'); el.textContent = message; el.classList.add('show'); window.clearTimeout(showNotice.timer); showNotice.timer = window.setTimeout(() => el.classList.remove('show'), 2800); }
+    function addToCart(id) { const item = cart.find(row => row.id === id); if (item) item.quantity++; else cart.push({ id, quantity: 1 }); renderCart(); showNotice(t('added')); }
+    function removeFromCart(id) { cart = cart.filter(row => row.id !== id); renderCart(); showNotice(t('removed')); }
+    function renderCart() {
+      const count = cart.reduce((sum,row) => sum + row.quantity, 0);
+      const total = cart.reduce((sum,row) => sum + products.find(p => p.id === row.id).price * row.quantity, 0);
+      $('#cartCount').textContent = count; $('#cartTotal').textContent = `RD$ ${money(total)}`;
+      $('#cartItems').innerHTML = cart.length ? cart.map(row => { const p = products.find(item => item.id === row.id); return `<div class="cart-row"><div><strong>${p.name[currentLang]}</strong><small>${row.quantity} × RD$ ${money(p.price)}</small></div><div><strong>RD$ ${money(p.price * row.quantity)}</strong><br><button class="remove-item" type="button" data-remove="${p.id}">${t('remove')}</button></div></div>`; }).join('') : `<div class="cart-empty">${t('emptyCart')}</div>`;
+    }
+    function openCart() { $('#cartOverlay').classList.add('open'); $('#cartOverlay').setAttribute('aria-hidden','false'); }
+    function closeCart() { $('#cartOverlay').classList.remove('open'); $('#cartOverlay').setAttribute('aria-hidden','true'); }
+    function openProduct(id) {
+      const p = products.find(item => item.id === id); if (!p) return;
+      $('#modalTitle').textContent = p.name[currentLang]; $('#modalDescription').textContent = p.description[currentLang];
+      $('#modalBenefits').innerHTML = p.benefits[currentLang].map(item => `<li>${item}</li>`).join('');
+      $('#productModal').classList.add('open'); $('#productModal').setAttribute('aria-hidden','false');
+    }
+    function closeProduct() { $('#productModal').classList.remove('open'); $('#productModal').setAttribute('aria-hidden','true'); }
+
+    // Eventos delegados para botones del catálogo y carrito.
+    document.addEventListener('click', (event) => {
+      const add = event.target.closest('[data-add]'); if (add) addToCart(add.dataset.add);
+      const detail = event.target.closest('[data-detail]'); if (detail) openProduct(detail.dataset.detail);
+      const remove = event.target.closest('[data-remove]'); if (remove) removeFromCart(remove.dataset.remove);
+    });
+    $('#langES').addEventListener('click', () => setLanguage('es'));
+    $('#langEN').addEventListener('click', () => setLanguage('en'));
+    $('#openCart').addEventListener('click', openCart); $('#closeCart').addEventListener('click', closeCart);
+    $('#cartOverlay').addEventListener('click', (e) => { if (e.target === $('#cartOverlay')) closeCart(); });
+    $('#closeModal').addEventListener('click', closeProduct);
+    $('#productModal').addEventListener('click', (e) => { if (e.target === $('#productModal')) closeProduct(); });
+    $('#checkoutButton').addEventListener('click', () => { showNotice(t('simulated')); closeCart(); });
+    $('#menuToggle').addEventListener('click', () => { const nav = $('#navLinks'); const open = nav.classList.toggle('open'); $('#menuToggle').setAttribute('aria-expanded', String(open)); });
+    $('#navLinks').addEventListener('click', (e) => { if (e.target.closest('a')) { $('#navLinks').classList.remove('open'); $('#menuToggle').setAttribute('aria-expanded','false'); } });
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') { closeCart(); closeProduct(); } });
+
+    // Enlaces configurables para que no se publiquen datos de contacto ficticios.
+    $('#whatsappLink').href = `https://wa.me/${CONTACT.whatsapp}`;
+    $('#instagramLink').href = CONTACT.instagram; $('#emailLink').href = `mailto:${CONTACT.email}`;
+    $('#emailLink').textContent = CONTACT.email; $('#instagramLink').textContent = '@' + CONTACT.instagram.split('/').filter(Boolean).pop();
+    $('#onirixLink').href = CONTACT.onirix;
+    $('#onirixLink').addEventListener('click', (e) => { if (CONTACT.onirix.includes('PEGA AQUÍ')) { e.preventDefault(); showNotice(t('onirixMissing')); } });
+    $('#year').textContent = new Date().getFullYear();
+    renderProducts(); renderCart();
+  </script>
+</body>
+</html>
